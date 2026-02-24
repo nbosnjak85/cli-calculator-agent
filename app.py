@@ -2,6 +2,7 @@ from langchain.agents import create_agent
 from langchain.tools import tool
 from langchain_core.messages import SystemMessage
 from langchain_ollama import ChatOllama
+# from langchain_openai import ChatOpenAI
 
 from dotenv import load_dotenv
 
@@ -31,7 +32,7 @@ agent = create_agent(
 
 def main():
     while True:
-        user_input = input("User> ").strip()
+        user_input = input("You> ").strip()
 
         if user_input.lower() in ["exit", "quit"]:
             print("Exiting the program. Goodbye!")
