@@ -13,16 +13,6 @@ def add_numbers(a: float, b: float) -> str:
     print(f"[tool] add_numbers(a={a}, b={b})")
     return str(a + b)
 
-
-# @before_model
-# def print_string(state, runtime):
-#     # state contains the message history
-#     # runtime contains agent configuration
-#     print("[middleware] Running before LLM call...")
-
-#     # Return the state (unchanged or modified)
-#     return state
-
 # llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0)
 llm = ChatOllama(model="qwen2.5:3b", temperature=0)
 
