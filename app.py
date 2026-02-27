@@ -1,12 +1,10 @@
 from langchain.agents import create_agent
 from langchain.tools import tool
-from langchain_core.messages import SystemMessage
+from langchain.messages import SystemMessage
 from langchain_ollama import ChatOllama
-# from langchain_openai import ChatOpenAI
 
 import re
 from dotenv import load_dotenv
-
 
 load_dotenv(".env.local")
 
@@ -36,12 +34,12 @@ systemPrompt = SystemMessage(
         "- Always pass the user's full message exactly as written into the 'text' parameter.\n"
         "- Do NOT extract numbers yourself.\n"
         "- Do NOT guess missing numbers.\n"
+        "- If the user provides more or fewer than two numbers, the tool will return an error message. You should not handle this yourself.\n"
         "For non-math questions, respond normally without calling any tool."
     )
 )
 
 agent = create_agent(model=llm, tools=[add_numbers], system_prompt=systemPrompt)
-
 
 def main():
     while True:
@@ -54,9 +52,8 @@ def main():
         messages: list[dict] = [{"role": "user", "content": user_input}]
 
         result = agent.invoke({"messages": messages})
-
+        
         print("AI>", result["messages"][-1].content)
-
 
 if __name__ == "__main__":
     main()
